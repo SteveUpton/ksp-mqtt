@@ -28,22 +28,6 @@ namespace MQTTKSP {
             _client.Subscribe("ksp/test1/commands/#", QoS.BestEfforts);   // Subscribe to command topic
             print("MQTT Client subscribed to command topic");
 
-
-
-            // Create the client
-            /*_client = MqttClientFactory.CreateClient("m2m.eclipse.org:1883", "ksptest1");
-
-            // Setup callbacks
-            _client.Connected += new ConnectionDelegate(client_Connected);
-            _client.PublishArrived += new PublishArrivedDelegate(client_PublishArrived);
-            _client.ConnectionLost += new ConnectionDelegate(_client_ConnectionLost);
-
-            _client.Connect(true);  // Connect
-            _client.Subscribe("ksp/test1/commands/#", QoS.BestEfforts);   // Subscribe to command topic*/
-
-            //ksp/test1/telemetry/#
-            //at the beginning of the flight, register your fly-by-wire control function that will be called repeatedly during flight:
-            //FlightInputHandler.OnFlyByWire += new FlightInputHandler.FlightInputCallback(fly);
         }
 
         bool client_PublishArrived(object sender, PublishArrivedArgs e)
@@ -56,11 +40,6 @@ namespace MQTTKSP {
 
             return true;
         }
-
-        /*void _client_ConnectionLost(object sender, EventArgs e)
-        {
-            print("MQTT connection lost");
-        }*/
 
     }
 
