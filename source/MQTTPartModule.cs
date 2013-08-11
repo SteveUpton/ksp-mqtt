@@ -13,6 +13,12 @@ namespace MQTTKSP
 
         public override void OnStart(PartModule.StartState state)
         {
+            // No need to create a client if we're in the VAB/SPH
+            if (vessel == null)
+            {
+                return;
+            }
+
             System.Random rand = new System.Random();
             String clientID = "ksp" + rand.Next(100000);
 

@@ -15,13 +15,37 @@ namespace MQTTKSP
         {
             base.OnStart(state);
             client.PublishArrived += new PublishArrivedDelegate(client_PublishArrived);
-            client.Subscribe("ksp/test1/cmd/rc", QoS.BestEfforts);   // Subscribe to rss command topic
+            client.Subscribe("ksp/test1/cmd/#", QoS.BestEfforts);   // Subscribe to rss command topic
             print("Remote Control System subscribed to command topic");
         }
 
         bool client_PublishArrived(object sender, PublishArrivedArgs e)
         {
-            Staging.ActivateNextStage();
+            string commandTopic = e.Topic;
+            FlightCtrlState flightControlState = FlightInputHandler.state;
+                // vessel.ctrlState;
+
+            if (commandTopic.EndsWith("stage"))
+            {
+                Staging.ActivateNextStage();
+            }
+            else if (commandTopic.EndsWith("throttle"))
+            {
+                flightControlState.mainThrottle = float.Parse(e.Payload.ToString());
+            }
+            /*else if (commandTopic.EndsWith("z"))
+            {
+                flightControlState.Z =  float.Parse(e.Payload.ToString());
+            }
+            else if (commandTopic.EndsWith("pitch"))
+            {
+                flightControlState.pitch = float.Parse(e.Payload.ToString());
+            }
+            else if (commandTopic.EndsWith("throttle"))
+            {
+                flightControlState.mainThrottle = float.Parse(e.Payload.ToString());
+            }*/
+            
             return true;
         }
 
