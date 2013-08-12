@@ -23,7 +23,6 @@ namespace MQTTKSP
         {
             string commandTopic = e.Topic;
             FlightCtrlState flightControlState = FlightInputHandler.state;
-                // vessel.ctrlState;
 
             if (commandTopic.EndsWith("stage"))
             {
@@ -33,18 +32,6 @@ namespace MQTTKSP
             {
                 flightControlState.mainThrottle = float.Parse(e.Payload.ToString());
             }
-            /*else if (commandTopic.EndsWith("z"))
-            {
-                flightControlState.Z =  float.Parse(e.Payload.ToString());
-            }
-            else if (commandTopic.EndsWith("pitch"))
-            {
-                flightControlState.pitch = float.Parse(e.Payload.ToString());
-            }
-            else if (commandTopic.EndsWith("throttle"))
-            {
-                flightControlState.mainThrottle = float.Parse(e.Payload.ToString());
-            }*/
             
             return true;
         }
